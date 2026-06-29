@@ -1,34 +1,60 @@
 import { auth } from "./firebase.js";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-const btnCadastro = document.getElementById("btnCadastro");
-const btnLogin = document.getElementById("btnLogin");
+const email = document.getElementById("email");
+const senha = document.getElementById("senha");
+const mensagem = document.getElementById("mensagem");
 
-btnCadastro.addEventListener("click", () => {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
+document.getElementById("btnCadastro").addEventListener("click", async () => {
 
-    createUserWithEmailAndPassword(auth, email, senha)
-    .then(() => {
-        alert("Conta criada com sucesso!");
-    })
-    .catch((erro) => {
-        alert(erro.message);
-    });
+    if(email.value === "" || senha.value === ""){
+        mensagem.innerHTML = "Preencha todos os campos.";
+        return;
+    }
+
+    try{
+
+        await createUserWithEmailAndPassword(
+            auth,
+            email.value,
+            senha.value
+        );
+
+        mensagem.innerHTML = "✅ Conta criada com sucesso!";
+
+    }catch(e){
+
+        mensagem.innerHTML = e.message;
+
+    }
+
 });
 
-btnLogin.addEventListener("click", () => {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
+document.getElementById("btnLogin").addEventListener("click", async () => {
 
-    signInWithEmailAndPassword(auth, email, senha)
-    .then(() => {
-        alert("Login realizado!");
-    })
-    .catch((erro) => {
-        alert(erro.message);
-    });
+    if(email.value === "" || senha.value === ""){
+        mensagem.innerHTML = "Preencha todos os campos.";
+        return;
+    }
+
+    try{
+
+        await signInWithEmailAndPassword(
+            auth,
+            email.value,
+            senha.value
+        );
+
+        mensagem.innerHTML = "🎉 Login realizado com sucesso!";
+
+    }catch(e){
+
+        mensagem.innerHTML = e.message;
+
+    }
+
 });
