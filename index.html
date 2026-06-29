@@ -5,65 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JC Arena</title>
 
-<style>
-body{
-    margin:0;
-    background:#111;
-    color:white;
-    font-family:Arial;
-    text-align:center;
-}
-
-header{
-    background:#d4af37;
-    color:#111;
-    padding:20px;
-    font-size:32px;
-    font-weight:bold;
-}
-
-.card{
-    width:90%;
-    max-width:500px;
-    margin:20px auto;
-    background:#222;
-    padding:20px;
-    border-radius:15px;
-}
-
-button{
-    background:#d4af37;
-    color:#111;
-    border:none;
-    padding:15px 25px;
-    border-radius:10px;
-    font-size:18px;
-    font-weight:bold;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-⚽ JC Arena
-</header>
+<div class="container">
 
-<div class="card">
-<h2>Bem-vindo!</h2>
-<p>A plataforma onde todo torcedor compete.</p>
+<h1>⚽ JC Arena</h1>
 
-<button>Entrar</button>
+<p>Faça login ou crie sua conta</p>
+
+<input type="email" id="email" placeholder="Seu e-mail">
+
+<input type="password" id="senha" placeholder="Sua senha">
+
+<button id="btnCadastro">
+Criar Conta
+</button>
+
+<button id="btnLogin">
+Entrar
+</button>
+
+<div id="mensagem"></div>
+
 </div>
 
-<div class="card">
-<h2>🏆 Ranking</h2>
-
-<p>🥇 Jean - 120 pts</p>
-<p>🥈 Carlos - 100 pts</p>
-<p>🥉 Pedro - 90 pts</p>
-
-</div>
+<script type="module" src="app.js"></script>
 
 </body>
 </html>
