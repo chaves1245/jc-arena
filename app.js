@@ -49,7 +49,7 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
             senha.value
         );
 
-        mensagem.innerHTML = "🎉 Login realizado com sucesso!";
+        window.location.href = "dashboard.html";
 
     }catch(e){
 
