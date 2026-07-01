@@ -121,9 +121,30 @@ import { db, auth } from "./firebase.js";
 
 import {
 collection,
-addDoc
+addDoc,
+query,
+where,
+getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+async function carregarPalpite(){
 
+const q = query(
+collection(db,"palpites"),
+where("email","==",auth.currentUser.email)
+);
+
+const resultado = await getDocs(q);
+
+if(!resultado.empty){
+
+const ultimo = resultado.docs[resultado.docs.length-1].data();
+
+document.getElementById("resultado").innerHTML =
+"🏆 Seu último palpite: " + ultimo.palpite;
+
+}
+
+}
 function votar(time){
 
 addDoc(collection(db,"palpites"),{
@@ -149,7 +170,13 @@ document.getElementById("empate")
 
 document.getElementById("palmeiras")
 .addEventListener("click",()=>votar("Palmeiras"));
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+onAuthStateChanged(auth, (user) => {
+    if(user){
+        carregarPalpite();
+    }
+});
 </script>
 </body>
 
