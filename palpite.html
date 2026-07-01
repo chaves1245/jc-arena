@@ -97,12 +97,13 @@ cursor:pointer;
 
 <p>Quem vence?</p>
 
-<button>🔴 Flamengo</button>
+<<button id="flamengo">🔴 Flamengo</button>
 
-<button>⚪ Empate</button>
+<button id="empate">⚪ Empate</button>
 
-<button>🟢 Palmeiras</button>
+<button id="palmeiras">🟢 Palmeiras</button>
 
+<p id="resultado"></p>
 <br><br>
 
 <button onclick="window.location.href='dashboard.html'">
@@ -114,7 +115,42 @@ cursor:pointer;
 </div>
 
 </div>
+<script type="module">
 
+import { db, auth } from "./firebase.js";
+
+import {
+collection,
+addDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+function votar(time){
+
+addDoc(collection(db,"palpites"),{
+
+email: auth.currentUser.email,
+
+palpite: time,
+
+data: new Date()
+
+});
+
+document.getElementById("resultado").innerHTML=
+"✅ Palpite salvo: " + time;
+
+}
+
+document.getElementById("flamengo")
+.addEventListener("click",()=>votar("Flamengo"));
+
+document.getElementById("empate")
+.addEventListener("click",()=>votar("Empate"));
+
+document.getElementById("palmeiras")
+.addEventListener("click",()=>votar("Palmeiras"));
+
+</script>
 </body>
 
 </html>
