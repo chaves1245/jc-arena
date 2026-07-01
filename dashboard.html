@@ -3,30 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JC Arena - Painel</title>
+<title>JC Arena</title>
 
 <style>
+
 body{
 margin:0;
 background:#111;
-color:white;
 font-family:Arial;
+color:white;
 }
 
 header{
 background:#d4af37;
-color:#111;
 padding:20px;
 text-align:center;
 font-size:28px;
 font-weight:bold;
+color:black;
+}
+
+.container{
+padding:20px;
 }
 
 .card{
 background:#222;
-margin:20px;
 padding:20px;
 border-radius:15px;
+margin-bottom:20px;
 }
 
 button{
@@ -38,7 +43,9 @@ border:none;
 border-radius:10px;
 font-size:18px;
 font-weight:bold;
+cursor:pointer;
 }
+
 </style>
 
 </head>
@@ -49,46 +56,65 @@ font-weight:bold;
 🏆 JC Arena
 </header>
 
+<div class="container">
+
 <div class="card">
+
 <h2>Bem-vindo!</h2>
+
 <p id="usuario"></p>
+
 </div>
 
 <div class="card">
-<button>⚽ Jogos de Hoje</button>
-<button>🎯 Fazer Palpite</button>
-<button>🏆 Ranking</button>
-<button>👤 Meu Perfil</button>
-<button id="btnSair">🚪 Sair</button>
-</div><script type="module">
+
+<h3>⚽ Jogo do Dia</h3>
+
+<p>Flamengo 🆚 Palmeiras</p>
+
+<button>Dar Palpite</button>
+
+</div>
+
+<button id="btnSair">
+🚪 Sair
+</button>
+
+</div>
+
+<script type="module">
 
 import { auth } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-onAuthStateChanged(auth, (user) => {
 
-    if (user) {
+import {
+signOut,
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-        document.getElementById("usuario").innerHTML =
-        "📧 " + user.email;
+onAuthStateChanged(auth,(user)=>{
 
-    } else {
+if(user){
 
-        window.location.href = "index.html";
+document.getElementById("usuario").innerHTML=
+"📧 "+user.email;
 
-    }
+}else{
+
+window.location.href="index.html";
+
+}
 
 });
-document.getElementById("btnSair").addEventListener("click", async ()=>{
 
-    await signOut(auth);
+document.getElementById("btnSair").addEventListener("click",async()=>{
 
-    window.location.href="index.html";
+await signOut(auth);
+
+window.location.href="index.html";
 
 });
 
 </script>
 
 </body>
-
-</script>
 </html>
