@@ -71,6 +71,48 @@ cursor:pointer;
 </button>
 
 </div>
+<script type="module">
 
+import { db } from "./firebase.js";
+
+import {
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+async function carregarRanking(){
+
+let flamengo=0;
+let empate=0;
+let palmeiras=0;
+
+const resultado = await getDocs(collection(db,"palpites"));
+
+resultado.forEach((doc)=>{
+
+const dado = doc.data();
+
+if(dado.palpite=="Flamengo") flamengo++;
+
+if(dado.palpite=="Empate") empate++;
+
+if(dado.palpite=="Palmeiras") palmeiras++;
+
+});
+
+document.getElementById("fla").innerHTML=
+"🔴 Flamengo: "+flamengo+" votos";
+
+document.getElementById("emp").innerHTML=
+"⚪ Empate: "+empate+" votos";
+
+document.getElementById("pal").innerHTML=
+"🟢 Palmeiras: "+palmeiras+" votos";
+
+}
+
+carregarRanking();
+
+</script>
 </body>
 </html>
