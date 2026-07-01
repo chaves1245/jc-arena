@@ -51,7 +51,7 @@ font-weight:bold;
 
 <div class="card">
 <h2>Bem-vindo!</h2>
-<p>Você entrou na sua conta.</p>
+<p id="usuario"></p>
 </div>
 
 <div class="card">
@@ -63,9 +63,21 @@ font-weight:bold;
 </div><script type="module">
 
 import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-onAuthStateChanged(auth, (user) => {
 
-import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    if (user) {
 
+        document.getElementById("usuario").innerHTML =
+        "📧 " + user.email;
+
+    } else {
+
+        window.location.href = "index.html";
+
+    }
+
+});
 document.getElementById("btnSair").addEventListener("click", async ()=>{
 
     await signOut(auth);
